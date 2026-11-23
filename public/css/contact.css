@@ -1,0 +1,263 @@
+/* =========================================================
+   1. GLOBAL & RESET
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: "Funnel Sans", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================================
+   2. NAVBAR HEADER
+========================================================= */
+.navbar {
+    width: 100%;
+    height: 75px;
+    background-color: #0D1320;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    width: 205px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(28px, 4.5vw, 60px);
+}
+
+.nav-links a {
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: clamp(24px, 2.2vw, 30px);
+    font-weight: 400;
+    line-height: 1;
+    color: #FFFFFF;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #058CFB;
+}
+
+.nav-spacer {
+    width: 205px;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   3. KONTEN UTAMA & HERO BANNER
+========================================================= */
+.contact-main {
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 20px 24px 80px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-hero {
+    width: 100%;
+    min-height: 185px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 38px;
+}
+
+/* Gambar karakter game di sisi kanan hero dengan gradasi halus ke hitam */
+.hero-art {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 58%;
+    height: 100%;
+    background-image:
+        linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.65) 30%, rgba(0, 0, 0, 0.15) 75%, rgba(0, 0, 0, 0.5) 100%),
+        url("../images/v339_869.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: cover;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-title {
+    position: relative;
+    z-index: 2;
+    font-family: "Alfa Slab One", serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    color: #FFFFFF;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+}
+
+/* =========================================================
+   4. SUBJUDUL & KARTU WHATSAPP
+========================================================= */
+.contact-subtitle {
+    color: #E2E8F0;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+    max-width: 900px;
+    margin-bottom: 42px;
+}
+
+.whatsapp-card {
+    width: 100%;
+    max-width: 1180px;
+    background-color: #0B563B;
+    border-radius: 18px;
+    padding: 40px 32px 46px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+.wa-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.wa-icon-outline {
+    width: 30px;
+    height: 30px;
+    color: #25D366;
+    flex-shrink: 0;
+}
+
+.wa-header h2 {
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(22px, 2.3vw, 30px);
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.wa-description {
+    color: #E6F4EE;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(15px, 1.3vw, 18px);
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+/* Tombol Hijau Terang Chat WhatsApp Sekarang */
+.wa-cta-button {
+    width: 100%;
+    max-width: 990px;
+    height: 64px;
+    background-color: #25D366;
+    border-radius: 14px;
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #051B0E;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(18px, 1.6vw, 21px);
+    font-weight: 800;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.wa-cta-button:hover {
+    background-color: #2BE370;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+}
+
+.wa-icon-solid {
+    width: 28px;
+    height: 28px;
+    color: #051B0E;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   5. RESPONSIVE MOBILE & TABLET
+========================================================= */
+@media (max-width: 900px) {
+    .nav-spacer {
+        display: none;
+    }
+
+    .hero-art {
+        width: 100%;
+        opacity: 0.45;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        height: 64px;
+        padding: 0 16px;
+    }
+
+    .brand {
+        width: 150px;
+        height: 44px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 20px;
+    }
+
+    .whatsapp-card {
+        padding: 28px 20px 32px 20px;
+    }
+
+    .wa-cta-button {
+        height: 54px;
+    }
+}

@@ -1,0 +1,868 @@
+/* ==============================
+   NEXAKUN - ADMIN KELOLA PRODUK
+   ============================== */
+
+:root {
+    --bg-main: #05080e;
+    --bg-panel: #0d1320;
+    --bg-panel-light: #111b2c;
+    --blue: #058cfb;
+    --blue-dark: #184264;
+    --text-main: #ffffff;
+    --text-muted: #918f8f;
+    --green: #42ef5c;
+    --green-bg: #305935;
+    --red: #deacac;
+    --red-bg: #753131;
+    --border: rgba(255, 255, 255, 0.08);
+
+    /* SIZE VARIABLES */
+    --header-height: 68px;
+    --sidebar-width: 230px;
+}
+
+
+/* RESET */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "42dot Sans", sans-serif;
+    font-size: 14px;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-layout {
+    min-height: 100vh;
+}
+
+
+/* HEADER */
+
+.admin-header {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    padding: 6px 24px 6px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    width: 170px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+}
+
+.brand img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-label {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.notification-button {
+    position: relative;
+
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    color: var(--text-main);
+    font-size: 16px;
+
+    transition: 0.2s ease;
+}
+
+.notification-button:hover {
+    color: var(--blue);
+    border-color: var(--blue);
+}
+
+.notification-count {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 20px;
+    background: #ff383c;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* SIDEBAR */
+
+.admin-sidebar {
+    position: fixed;
+    z-index: 90;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+
+    width: var(--sidebar-width);
+    padding: 16px 10px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-link,
+.logout-link {
+    min-height: 48px;
+    padding: 8px 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    border-radius: 8px;
+
+    color: #FFFFFF;
+    font-family: "Gurajada", serif;
+    font-size: 20px;
+    letter-spacing: 0.3px;
+
+    transition: 0.2s ease;
+}
+
+.menu-link i,
+.logout-link i {
+    width: 22px;
+    text-align: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* MENU AKTIF */
+.menu-link.active {
+    background: #0D2944;
+    color: #058CFB;
+}
+
+/* HOVER */
+.menu-link:hover {
+    background: #0D2944;
+    color: #058CFB;
+}
+
+/* LOGOUT */
+.logout-link {
+    margin-top: auto;
+    color: #FF383C;
+}
+
+.logout-link:hover {
+    background: rgba(255, 56, 60, 0.1);
+}
+
+
+/* MAIN CONTENT */
+
+.admin-content {
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    padding: 86px 26px 36px;
+
+    background:
+        radial-gradient(ellipse at 80% 15%,
+            rgba(5, 140, 251, 0.08),
+            transparent 38%),
+        var(--bg-main);
+}
+
+
+/* PAGE HEADING */
+
+.page-heading {
+    min-height: 120px;
+    margin-bottom: 18px;
+    padding: 16px 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid rgba(5, 140, 251, 0.8);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(13, 19, 32, 0.85),
+            rgba(13, 19, 32, 0.45)
+        ),
+        url("../images/v1_507.png");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.page-heading h1 {
+    margin-bottom: 2px;
+
+    color: var(--text-main);
+    font-family: "Gurajada", serif;
+    font-size: clamp(32px, 3.5vw, 42px);
+    font-weight: 400;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+}
+
+.page-heading p {
+    max-width: 620px;
+
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* PRODUCT TABS */
+
+.product-tabs {
+    margin: 0 0 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-button {
+    position: relative;
+
+    padding: 0 2px 10px;
+
+    border: 0;
+    background: transparent;
+
+    color: var(--text-muted);
+    cursor: pointer;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.tab-button.active,
+.tab-button:hover {
+    color: var(--blue);
+}
+
+.tab-button.active::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+
+    height: 2.5px;
+
+    background: var(--blue);
+    border-radius: 3px 3px 0 0;
+    content: "";
+}
+
+
+/* PRODUCT PANEL */
+
+.product-panel {
+    padding: 18px;
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    background: var(--bg-panel);
+}
+
+.table-toolbar {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* BUTTON CETAK (PRINT BUTTON) */
+.btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1.2px solid var(--blue);
+    background: rgba(5, 140, 251, 0.12);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-print:hover {
+    background: var(--blue);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(5, 140, 251, 0.45);
+}
+
+.btn-print i {
+    font-size: 13px;
+}
+
+
+/* SUB-FILTER STATUS PILL */
+
+.status-pill-group {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    background: #05080e;
+    border: 1.2px solid var(--blue);
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(5, 140, 251, 0.18);
+}
+
+.status-pill-btn {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.status-pill-btn:hover {
+    color: var(--blue);
+}
+
+.status-pill-btn.active {
+    background: var(--blue);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(5, 140, 251, 0.4);
+}
+
+.status-pill-btn.active:hover {
+    color: #ffffff;
+}
+
+
+/* SEARCH */
+
+.search-box {
+    width: min(100%, 260px);
+    height: 34px;
+    padding: 0 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+
+    background: #080e19;
+    color: var(--text-muted);
+    transition: border-color 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: var(--blue);
+}
+
+.search-box input {
+    width: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+    color: var(--text-main);
+    font-size: 12px;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box i {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+
+/* TABLE */
+
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.product-table {
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.product-table th {
+    padding: 10px 12px;
+
+    border-bottom: 1px solid rgba(5, 140, 251, 0.35);
+
+    color: #ffffff;
+    font-family: "Gurajada", serif;
+    font-size: 19px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.product-table td {
+    height: 46px;
+    padding: 8px 12px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: #ffffff;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.product-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.product-table td:first-child {
+    width: 40px;
+    color: var(--text-muted);
+}
+
+.product-name {
+    min-width: 260px;
+    max-width: 380px;
+    line-height: 1.4;
+}
+
+
+/* PRODUCT STATUS */
+
+.status-badge {
+    min-width: 64px;
+    padding: 4px 10px;
+
+    display: inline-flex;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+.status-active {
+    background: var(--green-bg);
+    color: var(--green);
+}
+
+.status-sold {
+    background: var(--red-bg);
+    color: var(--red);
+}
+
+
+/* ACTION BUTTON */
+
+.action-cell {
+    white-space: nowrap;
+}
+
+.action-button {
+    width: 32px;
+    height: 30px;
+    margin-right: 6px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: var(--blue-dark);
+    color: #ffffff;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.action-button:hover {
+    border-color: var(--blue);
+    background: var(--blue);
+}
+
+.action-button.edit {
+    background: rgba(251, 188, 5, 0.18);
+    color: #fbbc05;
+}
+
+.action-button.edit:hover {
+    background: #a77b00;
+    color: #ffffff;
+}
+
+
+/* EMPTY MESSAGE */
+
+.empty-message {
+    padding: 28px 10px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+
+/* TABLE FOOTER */
+
+.table-footer {
+    padding-top: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.table-info {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.pagination {
+    display: flex;
+    gap: 7px;
+}
+
+.page-button {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.page-button.current,
+.page-button:hover {
+    border-color: var(--blue);
+    background: var(--blue);
+}
+
+
+/* RESPONSIVE TABLET */
+
+@media (max-width: 1100px) {
+
+    .admin-sidebar {
+        width: 235px;
+    }
+
+    .admin-content {
+        min-height: 100vh;
+        margin-left: 283px;
+        padding: 120px 32px 40px;
+
+        background: var(--bg-main);
+    }
+
+    .admin-header {
+        padding-right: 22px;
+    }
+
+}
+
+
+/* RESPONSIVE MOBILE */
+
+@media (max-width: 760px) {
+
+    .admin-header {
+        height: 76px;
+        padding: 8px 16px;
+    }
+
+    .brand {
+        width: 180px;
+        height: 60px;
+    }
+
+    .admin-sidebar {
+        position: fixed;
+        top: 76px;
+        bottom: auto;
+
+        width: 100%;
+        height: auto;
+        padding: 8px 12px;
+
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 5px;
+    }
+
+    .menu-link {
+        min-height: 42px;
+        padding: 7px 10px;
+
+        justify-content: center;
+        gap: 7px;
+
+        font-family: "Funnel Sans", sans-serif;
+        font-size: 11px;
+    }
+
+    .menu-link i {
+        width: auto;
+        font-size: 14px;
+    }
+
+    .logout-link {
+        display: none;
+    }
+
+    .admin-content {
+        margin-left: 0;
+        padding: 145px 16px 28px;
+    }
+
+    .page-heading {
+        min-height: 145px;
+        padding: 18px;
+    }
+
+    .page-heading h1 {
+        font-size: 58px;
+    }
+
+    .page-heading p {
+        font-size: 13px;
+    }
+
+    .product-panel {
+        padding: 15px;
+    }
+
+}
+
+
+/* RESPONSIVE SMALL MOBILE */
+
+/* ============================================================
+   PRINT MEDIA STYLES (CETAK HALAMAN PRODUK)
+   ============================================================ */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt !important;
+    }
+
+    .admin-header,
+    .admin-sidebar,
+    .product-tabs,
+    .page-heading,
+    .table-toolbar,
+    .table-footer,
+    .action-cell,
+    th:last-child {
+        display: none !important;
+    }
+
+    .admin-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+
+    .product-panel {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    .product-table {
+        min-width: 100% !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .product-table th {
+        color: #000000 !important;
+        border-bottom: 2px solid #000 !important;
+        background: #f0f0f0 !important;
+    }
+
+    .product-table td {
+        color: #000000 !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    .status-badge {
+        border: 1px solid #333 !important;
+        color: #000000 !important;
+        background: transparent !important;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .admin-label {
+        display: none;
+    }
+
+    .header-right {
+        gap: 10px;
+    }
+
+    .product-tabs {
+        gap: 18px;
+        overflow-x: auto;
+    }
+
+    .tab-button {
+        flex: 0 0 auto;
+        font-size: 12px;
+    }
+
+    .table-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .status-pill-group {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .status-pill-btn {
+        flex: 1;
+        text-align: center;
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .page-heading h1 {
+        font-size: 49px;
+    }
+
+    .page-heading p {
+        font-size: 12px;
+    }
+
+    .menu-link {
+        flex-direction: column;
+        gap: 3px;
+        font-size: 10px;
+    }
+
+    .admin-content {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+}
