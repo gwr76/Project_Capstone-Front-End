@@ -1,0 +1,641 @@
+/* ============================================================
+   NEXAKUN - PEMBELI RIWAYAT TRANSAKSI CSS (Serasi dengan pembeli.css)
+   ============================================================ */
+
+:root {
+    --bg-main: #05080E;
+    --bg-panel: #0D1320;
+    --bg-card: #111C30;
+    --blue: #058CFB;
+    --blue-dark: #0D2944;
+    --text-main: #FFFFFF;
+    --text-muted: #918F8F;
+    --green: #2FAB26;
+    --yellow: #FBBC05;
+    --red: #FF383C;
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-main);
+    font-family: 'Funnel Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* NAVBAR (100% IDENTIK DENGAN PEMBELI.CSS) */
+.buyer-navbar {
+    width: 100%;
+    height: 65px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.buyer-brand {
+    width: 210px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.buyer-brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.buyer-nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 55px);
+}
+
+.buyer-nav-links a {
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1;
+    font-weight: 400;
+    color: #FFFFFF;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.buyer-nav-links a:hover,
+.buyer-nav-links a.active {
+    color: #058CFB;
+}
+
+.nav-actions {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #aeb6c4;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.icon-button:hover {
+    color: #058CFB;
+    background: rgba(5, 140, 251, 0.12);
+}
+
+.icon-button svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* POP-UP NOTIFIKASI LONCENG */
+.notif-dropdown {
+    display: none;
+    position: absolute;
+    top: 54px;
+    right: 36px;
+    width: 300px;
+    padding: 16px;
+    background: #09101D;
+    border: 1px solid #22324D;
+    border-radius: 14px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.85);
+    z-index: 120;
+    flex-direction: column;
+}
+
+.notif-dropdown.show {
+    display: flex;
+    animation: notifFadeIn 0.18s ease;
+}
+
+@keyframes notifFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notif-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notif-header-icon {
+    width: 18px;
+    height: 18px;
+    color: #9AA3B2;
+    flex-shrink: 0;
+}
+
+.notif-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+}
+
+.notif-badge-icon {
+    width: 24px;
+    height: 18px;
+    border-radius: 3px;
+    background: #2ECC71;
+    color: #09101D;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.notif-item p {
+    font-size: 13px;
+    font-weight: 500;
+    color: #E2E6EE;
+    line-height: 1.42;
+}
+
+.notif-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 14px 0 10px 0;
+}
+
+.notif-logout-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 6px 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #E74C3C;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.notif-logout-btn:hover {
+    background: rgba(231, 76, 60, 0.12);
+    color: #FF6B5B;
+}
+
+/* MENU PROFIL DROPDOWN (Sesuai pembeli.html) */
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 54px;
+    right: 0;
+    width: 200px;
+    padding: 12px;
+    background: #0D1320;
+    border: 1px solid #058CFB;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    z-index: 110;
+}
+
+.profile-menu.show {
+    display: grid;
+    gap: 8px;
+}
+
+.profile-menu strong {
+    font-size: 13px;
+    color: #918F8F;
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-menu a,
+.profile-menu button {
+    color: #FFFFFF;
+    padding: 8px 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover {
+    background: rgba(5, 140, 251, 0.15);
+    color: #058CFB;
+}
+
+/* MAIN CONTENT */
+.buyer-content-wrap {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 36px 4% 60px 4%;
+    flex: 1;
+}
+
+.page-header-title {
+    margin-bottom: 24px;
+}
+
+.page-header-title h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.page-header-title h1 span {
+    color: var(--blue);
+}
+
+.page-header-title p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* CONTROLS (TABS & SEARCH) */
+.transaction-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.status-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #0D1424;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: var(--blue);
+    color: #FFFFFF;
+    border-color: var(--blue);
+}
+
+.search-trans-box {
+    position: relative;
+    width: 260px;
+}
+
+.search-trans-box input {
+    width: 100%;
+    padding: 8px 36px 8px 14px;
+    background: #0D1424;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-size: 13px;
+    outline: none;
+}
+
+.search-trans-box input:focus {
+    border-color: var(--blue);
+}
+
+.search-trans-box i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* TRANSACTION CARD LIST */
+.trans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.trans-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: border-color 0.2s;
+}
+
+.trans-card:hover {
+    border-color: rgba(5, 140, 251, 0.4);
+}
+
+.trans-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.trans-img-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+    flex-shrink: 0;
+}
+
+.trans-img-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trans-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.trans-code {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.5px;
+}
+
+.trans-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.trans-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.trans-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.trans-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.badge-status-buyer {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-status-buyer.selesai {
+    background: rgba(47, 171, 38, 0.15);
+    color: #38ef7d;
+    border: 1px solid rgba(47, 171, 38, 0.4);
+}
+
+.badge-status-buyer.menunggu {
+    background: rgba(251, 188, 5, 0.15);
+    color: #FBBC05;
+    border: 1px solid rgba(251, 188, 5, 0.4);
+}
+
+.badge-status-buyer.batal {
+    background: rgba(255, 56, 60, 0.15);
+    color: #FF383C;
+    border: 1px solid rgba(255, 56, 60, 0.4);
+}
+
+.btn-view-account {
+    padding: 8px 16px;
+    background: var(--blue);
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+.btn-view-account:hover {
+    opacity: 0.88;
+}
+
+/* MODAL DETAIL KREDENSIAL AKUN */
+.buyer-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.buyer-modal-overlay.show {
+    display: flex;
+}
+
+.buyer-modal-card {
+    background: #0D1424;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    padding: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.modal-credential-box {
+    background: #080D17;
+    border: 1px solid #1E2D44;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.credential-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.credential-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.credential-label {
+    color: var(--text-muted);
+}
+
+.credential-val {
+    font-weight: 700;
+    color: #FFFFFF;
+    background: #111C30;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: monospace;
+}
+
+.security-tip-box {
+    background: rgba(5, 140, 251, 0.08);
+    border: 1px solid rgba(5, 140, 251, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    color: #C5D5E8;
+    line-height: 1.5;
+}
+
+/* FOOTER */
+footer#contact {
+    width: 100%;
+    padding: 24px 4%;
+    background: #080D17;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    color: #918F8F;
+    font-size: 13px;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .buyer-navbar {
+        height: 60px;
+        padding: 0 16px;
+    }
+    .buyer-brand {
+        width: 160px;
+        height: 48px;
+    }
+    .buyer-nav-links {
+        display: none;
+    }
+    .notif-dropdown {
+        width: 270px;
+        right: -10px;
+    }
+    .trans-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .trans-right {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

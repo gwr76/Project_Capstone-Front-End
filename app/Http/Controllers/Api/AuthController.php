@@ -7,14 +7,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use App\Models\Penjual;
+use App\Models\Pesanan;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
+            'nama' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:tb_user',
             'password' => 'required|string|min:6',
         ]);
@@ -28,7 +30,7 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'nama' => $request->nama,
+            'nama' => $request->nama ?: Str::before($request->email, '@'),
             'email' => $request->email,
             'password' => Hash::make($request->password), 
         ]);
@@ -115,6 +117,48 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Data user berhasil diupdate!',
             'data' => $user
+        ], 200);
+    }
+
+    // Profil milik user yang sedang login + ringkasan insight
+    public function profil(Request $request)
+    {
+        $user = $request->user();
+
+        // "Dibatalkan" tidak dihitung sebagai transaksi
+        $pesanan = Pesanan::where('id_pembeli', $user->id_user)
+            ->where('status_pesanan', '!=', 'Dibatalkan');
+
+        return response()->json([
+            'success' => true,
+            'data' => $user,
+            'insight' => [
+                'akun_dibeli' => (clone $pesanan)->where('status_pesanan', 'Selesai')->count(),
+                'total_transaksi' => (clone $pesanan)->count(),
+            ],
+        ], 200);
+    }
+
+    // Ubah profil milik sendiri (selalu akun yang sedang login, bukan dari id di URL)
+    public function updateProfil(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'no_telp' => ['nullable', 'string', 'regex:/^\+?[0-9][0-9 ]{7,18}$/'],
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong.',
+            'no_telp.regex' => 'Nomor telepon tidak valid (8-19 digit, boleh diawali +).',
+        ]);
+
+        $user = $request->user();
+        $user->nama = $validated['nama'];
+        $user->no_telp = $validated['no_telp'] ?? null;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profil berhasil diperbarui!',
+            'data' => $user,
         ], 200);
     }
 

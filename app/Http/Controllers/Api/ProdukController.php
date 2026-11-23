@@ -28,8 +28,6 @@ class ProdukController extends Controller
         ], 200);
     }
 
-
-    
     public function store(Request $request)
     {
         if (auth()->user()->role !== 'penjual') {

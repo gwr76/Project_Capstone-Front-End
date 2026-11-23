@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\TransaksiController;
 
-// Prefix v3 (Versi 3 API)
 Route::prefix('v3')->group(function () {
     
    
@@ -30,9 +29,12 @@ Route::prefix('v3')->group(function () {
     Route::put('/user/{id}', [AuthController::class, 'update']);
     Route::delete('/user/{id}', [AuthController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/profil', [AuthController::class, 'profil']);
+    Route::put('/profil', [AuthController::class, 'updateProfil']);
 
     Route::post('/pesanan', [PesananController::class, 'store']);
     Route::get('/pesanan/riwayat', [PesananController::class, 'riwayatPesanan']);
+    Route::get('/pesanan/{id}/akun', [PesananController::class, 'akun']);
     Route::put('/pesanan/{id}/batal', [PesananController::class, 'batal']);
     Route::post('/pesanan/{id}/bayar', [PesananController::class, 'bayar']);
 

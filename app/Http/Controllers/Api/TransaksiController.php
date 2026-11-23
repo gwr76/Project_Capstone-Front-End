@@ -27,7 +27,7 @@ class TransaksiController extends Controller
             $pesanan->status_pesanan = 'Selesai'; // Atau 'Berhasil', sesuaikan dengan alur bisnismu
             $pesanan->save();
         
-        $akunGame = \App\Models\AkunGame::where('id_akungame', $pesanan->id_akungame)->first();
+        $akunGame = \App\Models\Produk::where('id_akungame', $pesanan->id_akungame)->first();
             if ($akunGame) {
                 $akunGame->status = 'Terjual'; // Pastikan nama kolom statusnya sesuai dengan di tabelmu
                 $akunGame->save();
@@ -60,6 +60,13 @@ class TransaksiController extends Controller
         if ($pesanan) {
             $pesanan->status_pesanan = 'Dibatalkan'; 
             $pesanan->save();
+
+            // Produk dibuka lagi supaya bisa dibeli orang lain
+            $produk = \App\Models\Produk::find($pesanan->id_akungame);
+            if ($produk && $produk->status === 'Dipesan') {
+                $produk->status = 'Tersedia';
+                $produk->save();
+            }
         }
 
         return response()->json([

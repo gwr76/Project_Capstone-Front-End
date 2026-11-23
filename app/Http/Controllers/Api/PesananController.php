@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use App\Models\Produk;
+use App\Models\Penjual;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -49,22 +51,70 @@ class PesananController extends Controller
         ], 201);
     }
     
-    // Melihat daftar pesanan (Khusus Pembeli)
+    // Melihat daftar pesanan milik pembeli yang sedang login
     public function riwayatPesanan()
     {
         $user = auth()->user();
 
-        if ($user->role !== 'pembeli') {
+        // calon_penjual tetap boleh melihat riwayat belanjanya
+        if (!in_array($user->role, ['pembeli', 'calon_penjual'])) {
             return response()->json(['success' => false, 'message' => 'Akses ditolak!'], 403);
         }
 
-        // Ambil semua pesanan milik pembeli yang sedang login
-        $pesanan = Pesanan::where('id_pembeli', $user->id_user)->get();
+        $pesanan = Pesanan::with('produk.kategori')
+            ->where('id_pembeli', $user->id_user)
+            ->orderByDesc('created_at')
+            ->orderByDesc('id_pesanan')
+            ->get();
+
+        // Nama toko penjual (tb_penjual.id_user = tb_produk.id_penjual)
+        $idPenjual = $pesanan->pluck('produk.id_penjual')->filter()->unique()->values();
+        $namaToko = Penjual::whereIn('id_user', $idPenjual)->pluck('nama_toko', 'id_user');
+
+        $data = $pesanan->map(function ($p) use ($namaToko) {
+            return [
+                'id_pesanan' => $p->id_pesanan,
+                'kode' => 'TRX-' . str_pad($p->id_pesanan, 4, '0', STR_PAD_LEFT),
+                'status_pesanan' => $p->status_pesanan,
+                'total_harga' => (float) $p->total_harga,
+                'tanggal' => $p->created_at,
+                'game' => $p->produk?->kategori?->nama_game,
+                'judul' => $p->produk ? Str::limit(Str::before($p->produk->deskripsi, "\n"), 90) : 'Produk sudah tidak tersedia',
+                'penjual' => $p->produk ? ($namaToko[$p->produk->id_penjual] ?? null) : null,
+            ];
+        });
 
         return response()->json([
             'success' => true,
             'message' => 'Daftar riwayat pesanan',
-            'data' => $pesanan
+            'data' => $data
+        ], 200);
+    }
+
+    // Data login akun game. Hanya untuk pembeli pemilik pesanan, dan hanya
+    // setelah pembayaran divalidasi admin (status Selesai).
+    public function akun($id)
+    {
+        $user = auth()->user();
+        $pesanan = Pesanan::with('produk')->find($id);
+
+        if (!$pesanan || (int) $pesanan->id_pembeli !== (int) $user->id_user) {
+            return response()->json(['success' => false, 'message' => 'Pesanan tidak ditemukan!'], 404);
+        }
+
+        if ($pesanan->status_pesanan !== 'Selesai') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data akun baru tersedia setelah pembayaran divalidasi admin.'
+            ], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id_pesanan' => $pesanan->id_pesanan,
+                'detail_akun' => $pesanan->produk?->getAttribute('detail_akun'),
+            ]
         ], 200);
     }
 
@@ -106,6 +156,11 @@ class PesananController extends Controller
 
         if (!$pesanan) {
             return response()->json(['success' => false, 'message' => 'Pesanan tidak ditemukan!'], 404);
+        }
+
+        // Hanya pemilik pesanan yang boleh membayar
+        if ((int) $pesanan->id_pembeli !== (int) auth()->user()->id_user) {
+            return response()->json(['success' => false, 'message' => 'Anda tidak berhak mengakses pesanan ini!'], 403);
         }
 
         // Pastikan statusnya masih Menunggu Pembayaran
@@ -157,6 +212,16 @@ class PesananController extends Controller
                 'success' => false,
                 'message' => 'Pesanan tidak ditemukan!'
             ], 404);
+        }
+
+        // Hanya pemilik pesanan yang boleh membatalkan
+        if ((int) $pesanan->id_pembeli !== (int) auth()->user()->id_user) {
+            return response()->json(['success' => false, 'message' => 'Anda tidak berhak mengakses pesanan ini!'], 403);
+        }
+
+        // Hanya pesanan yang belum dibayar yang bisa dibatalkan pembeli
+        if ($pesanan->status_pesanan !== 'Menunggu Pembayaran') {
+            return response()->json(['success' => false, 'message' => 'Pesanan ini tidak bisa dibatalkan lagi!'], 400);
         }
 
         // Ubah status pesanan menjadi Dibatalkan (Sesuaikan nama kolom status pesananmu)

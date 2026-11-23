@@ -1,0 +1,685 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #000000;
+    color: #FFFFFF;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.navbar {
+    width: 100%;
+    height: 65px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%;
+    background: #0D1320;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 100;
+}
+
+.brand {
+    width: 210px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 55px);
+}
+
+.nav-links a {
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: clamp(22px, 2vw, 28px);
+    line-height: 1;
+    color: #FFFFFF;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #058CFB;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #aeb6c4;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.icon-button:hover {
+    color: #058CFB;
+    background: rgba(5, 140, 251, 0.12);
+}
+
+.icon-button svg {
+    width: 26px;
+    height: 26px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* MENU PROFIL DROPDOWN */
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 54px;
+    right: 0;
+    width: 200px;
+    padding: 12px;
+    background: #0D1320;
+    border: 1px solid #058CFB;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    z-index: 110;
+}
+
+.profile-menu.show {
+    display: grid;
+    gap: 8px;
+}
+
+.profile-menu strong {
+    font-size: 13px;
+    color: #918F8F;
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-menu a,
+.profile-menu button {
+    color: #FFFFFF;
+    padding: 8px 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover {
+    background: rgba(5, 140, 251, 0.15);
+    color: #058CFB;
+}
+
+.welcome-toast {
+    position: fixed;
+    top: 95px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-16px);
+    width: min(650px, 92vw);
+    min-height: 92px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, rgba(44, 79, 54, 0.94) 0%, rgba(36, 66, 46, 0.96) 100%);
+    border: 1.5px solid #2f80ed;
+    border-radius: 18px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 250;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+}
+
+.welcome-toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.welcome-toast-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.welcome-toast-text {
+    color: #ffffff;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.welcome-toast-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.welcome-toast-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.welcome-toast-close:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #59ffd0;
+}
+
+.hero {
+    width: 100%;
+    min-height: 480px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 40px 4% 50px 4%;
+    background: #000000;
+    overflow: hidden;
+}
+
+.hero-copy {
+    width: 52%;
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1,
+.hero-copy h1 {
+    color: #FFFFFF;
+    font-family: "Alfa Slab One", serif;
+    font-size: clamp(38px, 4.5vw, 60px);
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.description {
+    max-width: 540px;
+    color: #918F8F;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(15px, 1.4vw, 19px);
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.tagline {
+    color: #FFFFFF;
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: clamp(26px, 2.8vw, 38px);
+    line-height: 1.2;
+    margin-bottom: 28px;
+    font-weight: normal;
+}
+
+.hero-art {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 52%;
+    height: 100%;
+    min-height: 480px;
+    background-image:
+        linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.35) 25%, transparent 65%),
+        url("../images/v270_366.png");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+.search-box {
+    width: min(580px, 100%);
+    height: 58px;
+    background: rgba(217, 217, 217, 0.15);
+    border: 2px solid #757575;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    padding: 4px 6px 4px 20px;
+    gap: 12px;
+    position: relative;
+    z-index: 3;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: #058CFB;
+    box-shadow: 0 0 15px rgba(5, 140, 251, 0.25);
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    opacity: 0.7;
+}
+
+.search-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #FFFFFF;
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.search-box input::placeholder {
+    color: #FFFFFF;
+    opacity: 0.5;
+}
+
+.search-box button {
+    height: 46px;
+    min-width: 100px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 100px;
+    background: #058CFB;
+    color: #FFFFFF;
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box button:hover {
+    background: #006dc5;
+}
+
+.games-section {
+    padding: 40px 4% 60px 4%;
+    background: #000000;
+}
+
+.games-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    color: #FFFFFF;
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: clamp(32px, 3.2vw, 42px);
+    line-height: 1.2;
+}
+
+/* LOGO ICON GAMEPAD BIRU */
+.games-section-icon {
+    width: 35px;
+    height: 35px;
+    background-image: url("../images/v270_374.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.games-section h2 span:last-child {
+    color: #058CFB;
+}
+
+.gamepad {
+    font-size: 32px;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+}
+
+/* KARTU GAME */
+.game-card {
+    height: 220px;
+    border: 1px solid #058CFB;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #65bdff;
+    box-shadow: 0 10px 25px rgba(5, 140, 251, 0.3);
+}
+
+.game-card:active {
+    transform: scale(0.98);
+}
+
+.freefire {
+    background-image:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, transparent 55%),
+        url("../images/v270_378.png");
+}
+
+.mobilelegends {
+    background-image:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, transparent 55%),
+        url("../images/v273_379.png");
+}
+
+.pubg {
+    background-image:
+        linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, transparent 55%),
+        url("../images/v273_384.png");
+}
+
+.game-name {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 800;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.5px;
+}
+
+/* TOMBOL PANAH KARTU */
+.arrow {
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #058CFB;
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.game-card:hover .arrow {
+    transform: translateX(4px);
+    background: #006dc5;
+}
+
+.latest-accounts-section {
+    padding: 0 4% 55px 4%;
+    background: #000000;
+}
+
+.latest-accounts-heading {
+    padding: 0 0 24px 0;
+}
+
+.latest-accounts-heading h2 {
+    margin-bottom: 0;
+}
+
+.latest-accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.home-account-card {
+    background: #0D1320;
+    border: 1px solid #058CFB;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-account-card:hover {
+    transform: translateY(-4px);
+    border-color: #65bdff;
+    box-shadow: 0 10px 25px rgba(5, 140, 251, 0.25);
+}
+
+.home-account-card img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+    display: block;
+    background: #111c30;
+}
+
+.home-account-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+}
+
+.home-account-game {
+    font-size: 11px;
+    font-weight: 700;
+    color: #058CFB;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.home-account-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.home-account-body p {
+    font-size: 12px;
+    color: #918F8F;
+    line-height: 1.45;
+}
+
+.home-account-price {
+    margin-top: auto;
+    font-size: 18px;
+    font-weight: 700;
+    color: #42ef5c;
+    padding-top: 6px;
+}
+
+.below-section {
+    padding: 50px 4%;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0D1320;
+    text-align: center;
+}
+
+.below-section h2 {
+    font-family: "Gurajada", "Funnel Sans", sans-serif;
+    font-size: 34px;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+}
+
+.below-section p {
+    color: #918F8F;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+footer {
+    padding: 28px 4%;
+    background: #080D17;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    color: #918F8F;
+    font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+    .hero-copy {
+        width: 58%;
+    }
+
+    .hero-art {
+        width: 46%;
+    }
+
+    .latest-accounts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 860px) {
+    .hero {
+        min-height: auto;
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+
+    .hero-copy {
+        width: 100%;
+    }
+
+    .hero-art {
+        width: 75%;
+        opacity: 0.25;
+    }
+
+    .game-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 580px) {
+    .navbar {
+        height: 60px;
+        padding: 0 16px;
+    }
+
+    .brand {
+        width: 160px;
+        height: 48px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .welcome-toast {
+        top: 80px;
+        min-height: 78px;
+        padding: 14px 24px;
+    }
+
+    .welcome-toast-logo {
+        height: 28px;
+    }
+
+    .hero h1,
+    .hero-copy h1 {
+        font-size: 36px;
+    }
+
+    .search-box {
+        height: 52px;
+        padding: 4px 5px 4px 14px;
+    }
+
+    .search-box button {
+        height: 40px;
+        padding: 0 18px;
+        font-size: 22px;
+    }
+
+    .game-grid,
+    .latest-accounts-grid {
+        grid-template-columns: 1fr;
+    }
+}
