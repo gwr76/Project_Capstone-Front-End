@@ -1,0 +1,672 @@
+/* =========================================================
+   1. GLOBAL & BACKGROUND
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050811;
+    background-image:
+        linear-gradient(180deg, rgba(5, 8, 17, 0.72) 0%, rgba(5, 8, 17, 0.85) 100%),
+        url("../images/v195_317.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #FFFFFF;
+    font-family: "Funnel Sans", sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* =========================================================
+   2. NAVBAR HEADER
+========================================================= */
+.navbar {
+    width: 100%;
+    height: 76px;
+    background-color: #0B1220;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 3.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    width: 195px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.brand img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+    margin-right: auto;
+    margin-left: clamp(40px, 12vw, 175px);
+}
+
+.nav-links a {
+    font-family: "Funnel Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #058CFB;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: #9CA3AF;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.icon-btn:hover {
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+.bell-btn svg {
+    width: 30px;
+    height: 30px;
+}
+
+.user-btn svg {
+    width: 32px;
+    height: 32px;
+}
+
+/* =========================================================
+   3. GRID UTAMA HALAMAN PROFILE
+========================================================= */
+.profile-main {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 24px 50px 24px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.95fr;
+    gap: 22px;
+    align-items: stretch;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* =========================================================
+   4. STYLING KARTU UMUM
+========================================================= */
+.profile-card {
+    background-color: rgba(17, 25, 42, 0.94);
+    border: 1px solid #2B3952;
+    border-radius: 16px;
+    padding: 24px 26px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.profile-card h2 {
+    font-size: 21px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+/* =========================================================
+   5. KARTU INFO USER (KIRI ATAS)
+========================================================= */
+.user-header-row {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 106px;
+    height: 106px;
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #E2E8F0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.avatar-circle svg {
+    width: 82px;
+    height: 82px;
+}
+
+/* Ikon lingkaran + di pojok kanan bawah avatar */
+.avatar-plus-btn {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1.6px solid #1E293B;
+    color: #1E293B;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.avatar-plus-btn:hover {
+    background-color: #1E293B;
+    color: #FFFFFF;
+}
+
+.avatar-plus-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.user-identity {
+    flex: 1;
+}
+
+.name-edit-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.user-identity h1 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.username {
+    color: #E2E8F0;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+/* Tombol Edit Profil dengan border biru sesuai desain */
+.btn-edit-profile {
+    background-color: #1D2940;
+    border: 1px solid #058CFB;
+    border-radius: 7px;
+    padding: 5px 12px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-edit-profile:hover {
+    background-color: rgba(5, 140, 251, 0.22);
+}
+
+.role-badge {
+    display: inline-block;
+    margin-top: 9px;
+    margin-bottom: 15px;
+    padding: 4px 26px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #6EB8F5 0%, #3E95E5 100%);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.contact-details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.contact-details li {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #E2E8F0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* =========================================================
+   6. KARTU LENGKAPI AKUN KAMU (KIRI BAWAH)
+========================================================= */
+.complete-account-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.section-title-with-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.title-icon {
+    width: 36px;
+    height: 36px;
+    color: #CBD5E1;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.section-sub {
+    color: #94A3B8;
+    font-size: 12.5px;
+    line-height: 1.45;
+    margin-top: 3px;
+}
+
+.checklist-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checklist-item {
+    background-color: #1D2940;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.checklist-item.clickable {
+    cursor: pointer;
+}
+
+.checklist-item.clickable:hover {
+    border-color: #058CFB;
+    background-color: #23324D;
+}
+
+.check-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.check-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.check-icon.verified {
+    color: #00D26A;
+}
+
+.check-icon.pending {
+    color: #E2E8F0;
+}
+
+.check-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.status-green {
+    color: #00D26A;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.status-muted {
+    color: #64748B;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* =========================================================
+   7. KARTU ROLE AKUN (KANAN ATAS)
+========================================================= */
+.role-card h2 {
+    margin-bottom: 14px;
+}
+
+.role-box {
+    background-color: #1D2940;
+    border-radius: 11px;
+    padding: 15px 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 13px;
+}
+
+.role-box:last-child {
+    margin-bottom: 0;
+}
+
+.seller-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+}
+
+.seller-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.role-icon {
+    width: 36px;
+    height: 36px;
+    color: #64748B;
+    flex-shrink: 0;
+}
+
+.role-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.role-info h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.role-info p {
+    color: #64748B;
+    font-size: 12.5px;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+.btn-activate-seller {
+    width: 100%;
+    height: 40px;
+    background-color: #419DF5;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background-color 0.2s ease;
+}
+
+.btn-activate-seller:hover {
+    background-color: #2589E8;
+}
+
+/* =========================================================
+   8. KARTU KEAMANAN AKUN (KANAN TENGAH)
+========================================================= */
+.security-card {
+    padding: 20px 26px;
+}
+
+.security-card h2 {
+    margin-bottom: 12px;
+}
+
+.security-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.security-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+/* Tombol Ubah dengan pensil kecil di pojok kanan atas tombol */
+.btn-change-pass {
+    position: relative;
+    border: 1px solid #058CFB;
+    border-radius: 7px;
+    padding: 6px 28px;
+    color: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-change-pass:hover {
+    background-color: rgba(5, 140, 251, 0.18);
+}
+
+.corner-pencil {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+}
+
+/* =========================================================
+   9. KARTU INSIGHT (KANAN BAWAH)
+========================================================= */
+.insight-card {
+    flex: 1;
+}
+
+.insight-card h2 {
+    margin-bottom: 14px;
+}
+
+.insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.stat-box {
+    background-color: #1D2940;
+    border-radius: 9px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stat-label {
+    color: #CBD5E1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stat-value {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+/* =========================================================
+   10. MODAL EDIT PROFIL
+========================================================= */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-backdrop.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 420px;
+    background: #0F172A;
+    border: 1px solid #058CFB;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.modal-box h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.modal-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #CBD5E1;
+    margin-bottom: 6px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #1E293B;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #334155;
+    color: #FFFFFF;
+}
+
+.btn-save {
+    background: #058CFB;
+    color: #FFFFFF;
+}
+
+/* =========================================================
+   11. RESPONSIVE MOBILE & TABLET
+========================================================= */
+@media (max-width: 960px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        margin-left: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        height: 64px;
+        padding: 0 16px;
+    }
+
+    .brand {
+        width: 150px;
+        height: 44px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .user-header-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .name-edit-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-details li {
+        justify-content: center;
+    }
+
+    .insight-grid {
+        grid-template-columns: 1fr;
+    }
+}

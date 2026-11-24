@@ -1,0 +1,776 @@
+
+/* ========================================
+   1. GLOBAL
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Funnel Sans", sans-serif;
+    font-size: 14px;
+    background: #000;
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   2. HALAMAN UTAMA
+======================================== */
+
+.home-page {
+    width: 100%;
+    min-height: 900px;
+    height: auto;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+
+
+/* ========================================
+   3. NAVBAR
+======================================== */
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0D1320;
+    z-index: 10;
+}
+
+.navbar-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background: #0D1320;
+    z-index: -1;
+}
+
+.navbar-logo {
+    width: 210px;
+    height: 65px;
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    background-image: url("../images/v341_395.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.nav-home,
+.nav-games,
+.nav-about,
+.nav-contact {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Gurajada", sans-serif;
+    font-size: clamp(23px, 2vw, 30px);
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color:#FFFFFF;
+}
+
+.nav-home {
+    left: 40%;
+}
+
+
+.nav-games {
+    left: 47%;
+}
+
+.nav-about {
+    left: 54%;
+}
+
+.nav-contact {
+    left: 61%;
+}
+.nav-home:hover,
+.nav-home.active,
+.nav-games:hover,
+.nav-games.active,
+.nav-about:hover,
+.nav-about.active,
+.nav-contact:hover,
+.nav-contact.active {
+    color: #058CFB;
+}
+
+
+
+/* ========================================
+   4. TOMBOL LOGIN
+======================================== */
+
+.login-button {
+    width: 65px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    z-index: 30;
+}
+
+.login-button-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.login-button-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #058CFB;
+    border-radius: 8px;
+}
+
+.login-text {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: white;
+    font-family: "Gurajada", sans-serif;
+    font-size: 25px;
+    line-height: 1;
+    text-align: center;
+}
+
+
+/* ========================================
+   5. TOMBOL REGISTER
+======================================== */
+
+.register-button {
+    width: 85px;
+    height: 30px;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    z-index: 30;
+}
+
+.register-button-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.register-button-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #058CFB;
+    border-radius: 8px;
+}
+
+.register-text {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: white;
+    font-family: "Gurajada", sans-serif;
+    font-size: 25px;
+    line-height: 1;
+    text-align: center;
+}
+
+
+/* ========================================
+   6. HERO SECTION
+======================================== */
+
+.hero-tagline {
+    width: 48%;
+    position: absolute;
+    top: 105px;
+    left: 4%;
+    color: #FFFFFF;
+    font-family: "Alfa Slab One", serif;
+    font-size: clamp(38px, 4.5vw, 60px);
+    font-weight: normal;
+    line-height: 1.2;
+    text-align: left;
+    z-index: 2;
+}
+
+.hero-image {
+    width: 48%;
+    height: 390px;
+    position: absolute;
+    top: 85px;
+    right: 0;
+    background-image: url("../images/v270_366.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.95;
+}
+
+.hero-description {
+    width: 43%;
+    position: absolute;
+    top: 235px;
+    left: 4%;
+    color: #918F8F;
+    font-family: "Funnel Sans", sans-serif;
+    font-size: clamp(15px, 1.4vw, 19px);
+    line-height: 1.6;
+    text-align: left;
+}
+
+.website-description {
+    width: 55%;
+    position: absolute;
+    top: 310px;
+    left: 4%;
+    color: #FFFFFF;
+    font-family: "Gurajada", sans-serif;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2;
+    text-align: left;
+}
+
+
+/* ========================================
+   7. SEARCH BAR
+======================================== */
+
+.search-container {
+    width: min(48%, 620px);
+    height: 75px;
+    position: absolute;
+    top: 405px;
+    left: 4%;
+    background: none;
+    overflow: visible;
+}
+
+.search-background {
+    width: 100%;
+    height: 55px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    background: rgba(217, 217, 217, 0.15);
+    border: 2px solid #757575;
+    border-radius: 100px;
+}
+
+.search-button-background {
+    width: 100px;
+    height: 45px;
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    background: #058CFB;
+    border-radius: 100px;
+}
+
+.search-button-text {
+    width: 100px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    color: #FFFFFF;
+    font-family: "Gurajada", sans-serif;
+    font-size: 32px;
+    line-height: 1;
+    text-align: center;
+    z-index: 2;
+}
+
+.search-placeholder {
+    width: calc(100% - 125px);
+    position: absolute;
+    top: 50%;
+    left: 35px;
+    transform: translateY(-50%);
+    color: #FFFFFF;
+    font-family: "Gurajada", sans-serif;
+    font-size: clamp(17px, 1.8vw, 25px);
+    opacity: 0.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ========================================
+   8. GAME SECTION
+======================================== */
+
+.games-section-title {
+    width: auto;
+    position: absolute;
+    top: 515px;
+    left: 7%;
+    color: #FFFFFF;
+    font-family: "Gurajada", sans-serif;
+    font-size: clamp(28px, 3vw, 40px);
+    text-align: left;
+}
+
+.games-section-icon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 532px;
+    left: 3%;
+    background-image: url("../images/v270_374.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+
+/* ========================================
+   9. GAME CARDS
+======================================== */
+
+.game-card-one,
+.game-card-two,
+.game-card-three {
+    width: 29%;
+    height: 205px;
+    position: absolute;
+    top: 600px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 1px solid #058CFB;
+    border-radius: 15px;
+    opacity: 0.85;
+}
+
+.game-card-one {
+    left: 4%;
+    background-image: url("../images/v270_378.png");
+}
+
+.game-card-two {
+    left: 35.5%;
+    background-image: url("../images/v273_379.png");
+}
+
+.game-card-three {
+    left: 67%;
+    background-image: url("../images/v273_384.png");
+}
+
+
+/* ========================================
+   10. GAME NAVIGATION
+======================================== */
+
+.game-navigation-arrow-one,
+.game-navigation-arrow-two,
+.game-navigation-arrow-three {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 770px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.game-navigation-arrow-one {
+    left: 29%;
+    background-image: url("../images/v273_387.png");
+}
+
+.game-navigation-arrow-two {
+    left: 60%;
+    background-image: url("../images/v273_389.png");
+}
+
+.game-navigation-arrow-three {
+    right: 5%;
+    background-image: url("../images/v273_391.png");
+}
+
+
+/* ========================================
+   12. RESPONSIVE LAPTOP
+======================================== */
+
+@media screen and (max-width: 1100px) {
+
+    .navbar-logo {
+        width: 145px;
+        left: 15px;
+    }
+
+    .nav-home { left: 35%; }
+    .nav-games { left: 44%; }
+    .nav-about { left: 53%; }
+    .nav-contact { left: 62%; }
+
+    .nav-home,
+    .nav-games,
+    .nav-about,
+    .nav-contact {
+        font-size: 25px;
+    }
+
+    .login-button {
+        right: 100px;
+        width: 50px;
+    }
+
+    .register-button {
+        right: 15px;
+        width: 90px;
+    }
+
+    .login-text,
+    .register-text {
+        font-size: 24px;
+    }
+
+    .hero-tagline {
+        font-size: 42px;
+        top: 105px;
+    }
+
+    .hero-image {
+        height: 330px;
+    }
+
+    .hero-description {
+        top: 215px;
+        width: 45%;
+        font-size: 15px;
+    }
+
+    .website-description {
+        top: 285px;
+        font-size: 30px;
+        width: 50%;
+    }
+
+    .search-container {
+        top: 375px;
+        width: 52%;
+    }
+
+    .games-section-title {
+        top: 480px;
+        font-size: 32px;
+    }
+
+    .games-section-icon {
+        top: 495px;
+    }
+
+    .game-card-one,
+    .game-card-two,
+    .game-card-three {
+        height: 175px;
+        top: 565px;
+    }
+
+    .game-navigation-arrow-one,
+    .game-navigation-arrow-two,
+    .game-navigation-arrow-three {
+        top: 730px;
+    }
+}
+
+
+/* ========================================
+   13. RESPONSIVE TABLET
+======================================== */
+
+@media screen and (max-width: 768px) {
+
+    .home-page {
+        min-height: 1050px;
+    }
+
+    .navbar {
+        height: 65px;
+    }
+
+    .navbar-logo {
+        display: none;
+    }
+
+    .nav-home { left: 15%; }
+    .nav-games { left: 38%; }
+    .nav-about { left: 61%; }
+    .nav-contact { left: 84%; }
+
+    .nav-home,
+    .nav-games,
+    .nav-about,
+    .nav-contact {
+        font-size: 22px;
+    }
+
+    .login-button {
+        top: 80px;
+        left: 5%;
+        right: auto;
+    }
+
+    .register-button {
+        top: 80px;
+        left: 105px;
+        right: auto;
+    }
+
+    .hero-tagline {
+        top: 145px;
+        left: 5%;
+        width: 90%;
+        font-size: clamp(35px, 7vw, 48px);
+    }
+
+    .hero-image {
+        width: 90%;
+        height: 300px;
+        top: 210px;
+        right: -10%;
+        opacity: 0.55;
+    }
+
+    .hero-description {
+        width: 85%;
+        top: 285px;
+        left: 5%;
+        font-size: 16px;
+    }
+
+    .website-description {
+        width: 85%;
+        top: 350px;
+        left: 5%;
+        font-size: 30px;
+    }
+
+    .search-container {
+        width: 90%;
+        top: 435px;
+        left: 5%;
+    }
+
+    .games-section-title {
+        top: 540px;
+        left: 10%;
+        font-size: 30px;
+    }
+
+    .games-section-icon {
+        top: 550px;
+        left: 4%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .game-card-one,
+    .game-card-two,
+    .game-card-three {
+        width: 29%;
+        height: 150px;
+        top: 620px;
+    }
+
+    .game-card-one { left: 4%; }
+    .game-card-two { left: 35.5%; }
+    .game-card-three { left: 67%; }
+
+    .game-navigation-arrow-one,
+    .game-navigation-arrow-two,
+    .game-navigation-arrow-three {
+        top: 790px;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+/* ========================================
+   14. RESPONSIVE MOBILE
+======================================== */
+
+@media screen and (max-width: 480px) {
+
+    .home-page {
+        min-height: 1100px;
+    }
+
+    .navbar {
+        height: 60px;
+    }
+
+    .nav-home { left: 12%; }
+    .nav-games { left: 37%; }
+    .nav-about { left: 62%; }
+    .nav-contact { left: 87%; }
+
+    .nav-home,
+    .nav-games,
+    .nav-about,
+    .nav-contact {
+        font-size: 18px;
+    }
+
+    .login-button {
+        top: 75px;
+        left: 5%;
+    }
+
+    .register-button {
+        top: 75px;
+        left: 95px;
+    }
+
+    .hero-tagline {
+        top: 140px;
+        font-size: 35px;
+    }
+
+    .hero-image {
+        top: 200px;
+        width: 100%;
+        height: 230px;
+        right: -15%;
+    }
+
+    .hero-description {
+        top: 280px;
+        font-size: 14px;
+    }
+
+    .website-description {
+        top: 350px;
+        font-size: 25px;
+    }
+
+    .search-container {
+        top: 435px;
+        height: 65px;
+    }
+
+    .search-background {
+        height: 48px;
+    }
+
+    .search-button-background {
+        width: 75px;
+        height: 40px;
+        top: 14px;
+    }
+
+    .search-button-text {
+        width: 75px;
+        font-size: 28px;
+    }
+
+    .search-placeholder {
+        left: 18px;
+        width: calc(100% - 110px);
+        font-size: 16px;
+    }
+
+    .games-section-title {
+        top: 530px;
+        font-size: 26px;
+    }
+
+    .games-section-icon {
+        top: 540px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .game-card-one,
+    .game-card-two,
+    .game-card-three {
+        width: 85%;
+        height: 150px;
+        left: 7.5%;
+    }
+
+    .game-card-one { top: 590px; }
+    .game-card-two { top: 760px; }
+    .game-card-three { top: 930px; }
+
+    .game-navigation-arrow-one {
+        top: 715px;
+        left: 88%;
+    }
+
+    .game-navigation-arrow-two {
+        top: 885px;
+        left: 88%;
+    }
+
+    .game-navigation-arrow-three {
+        top: 1055px;
+        right: 5%;
+    }
+}
+
+/* FOOTER */
+footer#contact {
+    padding: 20px 4%;
+    background: #080D17;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    text-align: center;
+    color: #918F8F;
+    font-size: 13px;
+    font-family: '42dot Sans', sans-serif;
+    margin-top: auto;
+}
